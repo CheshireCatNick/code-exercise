@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+// reverse string s
+
 char res[200000];
 int main(void){
 	char s[] = "abc";

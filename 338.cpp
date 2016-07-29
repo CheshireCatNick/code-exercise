@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// get the number of bit 1 in a number i by DP
+
 int getBits(int* ans, int i, int phase){
 	if (i == 0) return 0;
 	if (i == 1)	return 1;

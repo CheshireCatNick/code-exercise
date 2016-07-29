@@ -2,6 +2,8 @@
 #include <string.h>
 #include <ctype.h>
 
+// implement atoi
+
 int myAtoi(char* str){
 	int i;
 	int len = strlen(str);
