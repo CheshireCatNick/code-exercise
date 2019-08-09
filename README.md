@@ -1,2 +1,2 @@
-# LeetCode
-Solving all problems on LeetCode Online Judge.
+# Code Exercise
+Solving problems on various online judge / contest.
