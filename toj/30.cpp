@@ -1,3 +1,4 @@
+// @topics: prime
 #include <iostream>
 #include <stdio.h>
 #define MAX 1000001
