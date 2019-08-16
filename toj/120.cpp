@@ -1,4 +1,3 @@
-// @topics: array interval sum
 #include <stdio.h>
 
 int main(void) {

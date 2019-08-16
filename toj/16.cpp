@@ -1,4 +1,3 @@
-// @topics: two sum
 #include <stdio.h>
 #define MAX_SCORE 15000
 
