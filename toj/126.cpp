@@ -4,7 +4,7 @@
 using namespace std;
 
 bool isAvailableSum[2][2 * MAX_SCORE + 10];
-int ans[MAX_SCORE_NUM + 10];
+int ans[2 * MAX_SCORE + 10];
 
 void calcAns(int maxScore, int scoreNum) {
     int closestScore;
@@ -28,7 +28,10 @@ void calcSubsetSum(int* scores, int maxScore, int scoreNum) {
         for (int j = 1; j <= maxScore; j++) {
             if (isAvailableSum[(i - 1) % 2][j] || 
                 scores[i - 1] == j || 
-                isAvailableSum[(i - 1) % 2][j - scores[i - 1]]) isAvailableSum[i % 2][j] = true;
+                (j >= scores[i - 1] && 
+                isAvailableSum[(i - 1) % 2][j - scores[i - 1]])) {
+                isAvailableSum[i % 2][j] = true;
+            }
             else isAvailableSum[i % 2][j] = false;
         }
     }
