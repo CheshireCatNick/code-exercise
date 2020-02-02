@@ -5,6 +5,8 @@ Solving problems on [LeetCode Online Judge](https://leetcode.com/problemset/all/
 |Problem|Topics|Note|
 |-|-|-|
 |1|Two Sum||
+|2|Linked List Big Number Sum||
+|3|Longest Non-Reapeat Substring||
 |8|atoi|
 |136|XOR find single||
 |292|Easy||
