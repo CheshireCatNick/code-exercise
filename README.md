@@ -1,2 +1,2 @@
 # Code Exercise
-Solving problems on various online judge / contest.
+Solving problems on various online judges and contests.
