@@ -20,7 +20,10 @@ Solving problems on [LeetCode Online Judge](https://leetcode.com/problemset/all/
 |807|Easy Medium||
 |852|Binary Search||
 |1038|Recursion; Greatest Sum Tree||
-|5311||easy|
-|5312||easy|
-|5313||easy|
-|5314|BFS||
+|1342||easy|
+|1343||easy|
+|1344||easy|
+|1345|BFS||
+|1346||easy|
+|1347||easy|
+|1348||did not pass (OLE). don't know why orz|
