@@ -92,8 +92,24 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void)
 {
-    //ios::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
-
+    int t, a, b;
+    R(t);
+    while (t--) {
+        R(a, b);
+        if (a == b) {
+            W(0);
+            continue;
+        }
+        if (a < b) {
+            if (a % 2 != b % 2) W(1);
+            else W(2);
+        }
+        else {
+            if (a % 2 != b % 2) W(2);
+            else W(1);
+        }
+    }
 	return 0;
 }

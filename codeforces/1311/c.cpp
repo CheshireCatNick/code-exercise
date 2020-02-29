@@ -92,8 +92,29 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void)
 {
-    //ios::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
-
+    int t, n, m;
+    int p[200005];
+    int ans[26];
+    string s;
+    R(t);
+    while (t--) {
+        MS0(p);
+        MS0(ans);
+        R(n, m);
+        R(s);
+        FORN(i, m) {
+            int pos;
+            R(pos);
+            p[pos]++;
+        }
+        int tryTime = m + 1;
+        for (int i = 0; i < n; i++) {
+            tryTime -= p[i];
+            ans[s[i] - 'a'] += tryTime;
+        }
+        WA(ans, 26);
+    }
 	return 0;
 }

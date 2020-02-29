@@ -25,7 +25,7 @@ using namespace std;
 #define FORN(i, n) for (int i = 0; i < int(n); i++)
 #define NORF(i, n) for (int i = n - 1; i >= 0; i--)
 #define FOR(i, a, b) for (int i = a; i < int(b); i++)
-#define ROF(i, a, b) for (int i = int(b) - 1; i >= a; i--)
+#define ROF(i, a, b) for (int i = int(b) - 1; i <= a; i--)
 #define FORX(it, x) for (auto it = x.begin(); it != x.end(); it++)
 #define FORS(i, s) for (int i = 0; s[i]; i++)
 #define MS0(x) memset((x), 0, sizeof((x)))
@@ -90,10 +90,53 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+VL child[100005];
+// remove this table does not save much space due to tree shape
+//LL c[100005][2];
+#define MOD 1000000007
+VL updateCount(int nodeID, int parentID) {
+    if (SZ(child[nodeID]) == 0) {
+        //c[nodeID][0] = 1;
+        //c[nodeID][1] = 1;
+        return {1, 1};
+    }
+    //c[nodeID][0] = 1;
+    //c[nodeID][1] = 1;
+    VL c = {1, 1};
+    for (auto childID : child[nodeID]) {
+        if (childID == parentID) continue;
+        VL cc = updateCount(childID, nodeID);
+        /*
+        c[nodeID][0] *= c[childID][1];
+        c[nodeID][0] %= MOD;
+        c[nodeID][1] *= c[childID][0] + c[childID][1];
+        c[nodeID][1] %= MOD;
+        */
+       c[0] *= cc[1];
+       c[0] %= MOD;
+       c[1] *= cc[0] + cc[1];
+       c[1] %= MOD;
+    }
+    return c;
+}
 int main(void)
 {
-    //ios::sync_with_stdio(0);
-    cin.tie(0);
-
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+    int n;
+    R(n);
+    if (n == 1) {
+        W(2);
+        return 0;
+    }
+    int a, b;
+    FORN(i, n - 1) {
+        R(a, b);
+        child[a - 1].PB(b - 1);
+        child[b - 1].PB(a - 1);
+    }
+    VL c = updateCount(0, 0);
+    //W((c[0][0] + c[0][1]) % MOD);
+    W((c[0] + c[1]) % MOD);
 	return 0;
 }

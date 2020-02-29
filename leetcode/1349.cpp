@@ -25,7 +25,7 @@ using namespace std;
 #define FORN(i, n) for (int i = 0; i < int(n); i++)
 #define NORF(i, n) for (int i = n - 1; i >= 0; i--)
 #define FOR(i, a, b) for (int i = a; i < int(b); i++)
-#define ROF(i, a, b) for (int i = int(b) - 1; i >= a; i--)
+#define ROF(i, a, b) for (int i = int(b) - 1; i <= a; i--)
 #define FORX(it, x) for (auto it = x.begin(); it != x.end(); it++)
 #define FORS(i, s) for (int i = 0; s[i]; i++)
 #define MS0(x) memset((x), 0, sizeof((x)))
@@ -40,7 +40,6 @@ using namespace std;
 typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<LL> VL;
 
 template<class T> void _R(T &x) { cin >> x; }
 void _R(int &x) { scanf("%d", &x); }
@@ -90,10 +89,25 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+class Solution {
+public:
+    int maxStudents(vector<vector<char>>& seats) {
+        
+    }
+};
+
 int main(void)
 {
-    //ios::sync_with_stdio(0);
-    cin.tie(0);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+    Solution s;
+    vector<char> s1 = {".","#"};
+    vector<char> s2 = {"#","#"};
+    vector<char> s3 = {"#","."};
+    vector<char> s4 = {"#","#"};
+    vector<char> s5 = {".","#"};
+    W(seats);
+    //s.maxStudents();
 
 	return 0;
 }

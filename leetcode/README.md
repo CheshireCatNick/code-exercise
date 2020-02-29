@@ -11,6 +11,7 @@ Solving problems on [LeetCode Online Judge](https://leetcode.com/problemset/all/
 |6|ZigZag|too easy|
 |8|atoi||
 |50|implement pow()||
+|119|Pascal's triangle with O(n) space||
 |136|XOR find single||
 |292|Easy||
 |338|Count bits by DP||

@@ -90,10 +90,56 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int parent[105];
+int find(int i) {
+    if (parent[i] == i) return i;
+    else {
+        int p = find(parent[i]);
+        parent[i] = p;
+        return p;
+    }
+}
 int main(void)
 {
-    //ios::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
+    int t, n, m;
+    int a[105], p[105];
+    R(t);
+    while (t--) {
+        R(n, m);
+        FORN(i, n) {
+            R(a[i]);
+            parent[i] = i;
+        }
+        MS0(p);
+        FORN(i, m) {
+            int pos;
+            R(pos);
+            p[pos - 1] = 1;
+            parent[pos] = pos - 1;
+        }
+        // bubble sort
+        bool fail = false;
+        FOR(i, 0, n - 1) {
+            FOR(j, i + 1, n) {
+                if (a[i] > a[j]) {
+                    if (find(i) == find(j)) {
+                        int t = a[i];
+                        a[i] = a[j];
+                        a[j] = t;
+                    }
+                    else {
+                        fail = true;
+                        break;
+                    }
+                }
+            }
+            if (fail) break;
+        }
+        if (fail) W("NO");
+        else W("YES");
+    }
 
 	return 0;
 }

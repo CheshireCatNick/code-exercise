@@ -25,9 +25,10 @@ using namespace std;
 #define FORN(i, n) for (int i = 0; i < int(n); i++)
 #define NORF(i, n) for (int i = n - 1; i >= 0; i--)
 #define FOR(i, a, b) for (int i = a; i < int(b); i++)
-#define ROF(i, a, b) for (int i = int(b) - 1; i >= a; i--)
+#define ROF(i, a, b) for (int i = int(b) - 1; i <= a; i--)
 #define FORX(it, x) for (auto it = x.begin(); it != x.end(); it++)
 #define FORS(i, s) for (int i = 0; s[i]; i++)
+#define CD(t) while(t--)
 #define MS0(x) memset((x), 0, sizeof((x)))
 #define MS1(x) memset((x), -1, sizeof((x)))
 #define PB push_back
@@ -35,12 +36,10 @@ using namespace std;
 #define F first
 #define S second
 #define SZ(x) ((int)(x).size())
-#define ALL(x) begin(x), end(x)
 
 typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<LL> VL;
 
 template<class T> void _R(T &x) { cin >> x; }
 void _R(int &x) { scanf("%d", &x); }
@@ -92,8 +91,30 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void)
 {
-    //ios::sync_with_stdio(0);
-    cin.tie(0);
-
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+    int t;
+    R(t);
+    while (t--) {
+        int n, d;
+        R(n, d);
+        int a[n];
+        FORN(i, n) {
+            R(a[i]);
+        }
+        int ans = a[0];
+        FOR(i, 1, n) {
+            int canMove = d / i;
+            if (canMove == 0) break;
+            //dump(canMove, a[i]);
+            if (canMove <= a[i]) {
+                ans += canMove;
+                break;
+            }
+            ans += a[i];
+            d -= i * a[i];
+        }
+        W(ans);
+    }
 	return 0;
 }

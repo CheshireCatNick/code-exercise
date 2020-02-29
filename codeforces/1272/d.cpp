@@ -92,8 +92,42 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void)
 {
-    //ios::sync_with_stdio(0);
+    ios::sync_with_stdio(0);
     cin.tie(0);
-
+    int n;
+    R(n);
+    int a[n];
+    FORN(i, n) {
+        R(a[i]);
+    }
+    // start: longest increasing start from this index
+    // end: longest increasing end at this index
+    int start[n], end[n];
+    end[0] = 1;
+    FOR(i, 1, n) {
+        if (a[i] > a[i - 1]) end[i] = end[i - 1] + 1;
+        else end[i] = 1;        
+    }
+    start[n - 1] = 1;
+    ROF(i, 0, n - 1) {
+        if (a[i] < a[i + 1]) start[i] = start[i + 1] + 1;
+        else start[i] = 1;
+    }
+    //WA(start, n);
+    //WA(end, n);
+    int m = -1;
+    FORN(i, n) {
+        if (i == 0 || i == n - 1 || a[i - 1] < a[i + 1]) {
+            // try to remove i
+            int l = (i == 0) ? 0 : end[i - 1];
+            int r = (i == n - 1) ? 0 : start[i + 1];
+            chmax(m, l + r);
+        }
+    }
+    // without any removal
+    FORN(i, n) {
+        chmax(m, end[i]);
+    }
+    W(m);
 	return 0;
 }

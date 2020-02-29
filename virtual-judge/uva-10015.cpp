@@ -90,10 +90,38 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+VI primes;
+int isPrime[33005];
 int main(void)
 {
     //ios::sync_with_stdio(0);
     cin.tie(0);
-
+    // find primes less than 33000
+    FORN(i, 33005) isPrime[i] = 1;
+    for (int i = 2; i < 33000; i++) {
+        if (isPrime[i]) {
+            primes.PB(i);
+            for (int j = i * 2; j < 33000; j += i) {
+                isPrime[j] = 0;
+            }
+        }
+    }
+    int n;
+    VI people;
+    while (1) {
+        R(n);
+        if (n == 0) break;
+        people.resize(0);
+        FOR(i, 1, n + 1) people.PB(i);
+        int start = 0;
+        FORN(i, n - 1) {
+            // remove the prime[i]-th person
+            int kill = (start + primes[i]) % SZ(people) - 1;
+            if (kill == -1) kill = SZ(people) - 1;
+            people.erase(people.begin() + kill);
+            start = kill;
+        }
+        W(people[0]);
+    }    
 	return 0;
 }
