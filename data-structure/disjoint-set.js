@@ -33,6 +33,9 @@ class DisjointSet {
         this.parent['' + pb] = pa;
         this.size['' + pa] += this.size['' + pb];
     }
+    getSize(a) {
+        return this.size['' + this.find(a)];
+    }
     constructor() {
         this.parent = {};
         this.size = {};
@@ -45,9 +48,13 @@ ds.makeSet(2);
 ds.makeSet(3);
 console.log(ds.find(1));
 console.log(ds.find(2));
+
 ds.union(1, 2);
 console.log(ds.find(1));
 console.log(ds.find(2));
+
 ds.union(2, 3);
 console.log(ds.find(3));
+
 console.log(ds.size[1], ds.size[2], ds.size[3]);
+console.log(ds.getSize(1), ds.getSize(2), ds.getSize(3));
