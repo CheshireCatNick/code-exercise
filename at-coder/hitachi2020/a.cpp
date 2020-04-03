@@ -89,119 +89,23 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
     _dump(s + 1, tail...);
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
-#define MOD 1000000007
 
-typedef struct node {
-	struct node *next;
-	int val;
-} Node;
-
-Node* newNode(int val) {
-	Node *n = (Node*)malloc(sizeof(Node));
-	n->next = NULL;
-	n->val = val;
-	return n;
-}
-void print(Node *n) {
-	puts("stack:");
-	while (n != NULL) {
-		printf("%d\n", n->val);
-		n = n->next;
-	}
-	return;
-}
-void freeList(Node *n) {
-	while (n != NULL) {
-		n = n->next;
-		free(n);
-	}
-	return;
-}
-void push(Node **stack, int val) {
-	if (*stack == NULL) {
-		*stack = newNode(val);
-		return;
-	}
-	Node *head = newNode(val);
-	head->next = *stack;
-	*stack = head;
-	return;	
-}
-int pop(Node **stack) {
-	if (*stack == NULL) {
-		return -1;
-	}
-	int val = (*stack)->val;
-	*stack = (*stack)->next;
-	return val;
-}
-char * SaveString(const char * s) {
-       /* allocate memory for a copy of the input string s */
-       char * p = (char *) malloc(strlen(s));
-       while (*s)
-       {
-          	*p++ = *s++;
-       }
-       *p = '\0'; /* null-terminate saved copy */
-       return p;
-}
-
-void myCpy(int *dst, int *src, int n) {
-	int copyByte = 0;
-	int firstTarget = n - n % 4;
-	while (copyByte < firstTarget) {
-		memcpy(dst + copyByte, src + copyByte, 4);
-		copyByte += 4;
-	}
-	while (copyByte < n) {
-		memcpy(dst + copyByte, src + copyByte, 1);
-		copyByte++;
-	}
-}
-bool isSub(string a, string b) {
-	for (int i = 0; i < b.length(); i++) {
-		int j;
-		for (j = 0; j < a.length(); j++) {
-			if (a[j] != b[i + j]) {
-				break;
-			}
-		}
-		if (j == a.length()) {
-			return true;
-		}
-	}
-	return false;
-}
-string maxSub(string a, string b) {
-	int la = a.length(), lb = b.length();
-	string best = "";
-	for (int i = 0; i < la; i++) {
-		for (int j = i; j < la; j++) {
-			string ta = a.substr(i, j);
-			if (isSub(ta, b) && ta.length() > best.length()) {
-				best = ta;
-			}
-		}
-	}
-	return best;
-}
- 
 int main(void)
 {
     //ios::sync_with_stdio(0);
     cin.tie(0);
-	/*
-	int a[] = {1, 2, 3};
-	int *b;
-	myCpy(b, a, 12);
-	for (int i = 0; i < 4; i++) {
-		printf("%d\n", b[i]);
-	}*/
-	string a = "aavvbb";
-	string b = "cvvb";
-	cout << maxSub(a, b);
-
-	
-	
+    string s;
+    R(s);
+    if (SZ(s) % 2 == 1) {
+        W("No");
+        return 0;
+    }
+    FORN(i, SZ(s)) {
+        if ((i % 2 == 0 && s[i] != 'h') || (i % 2 == 1 && s[i] != 'i')) {
+            W("No");
+            return 0;
+        }
+    }
+    W("Yes");
 	return 0;
 }

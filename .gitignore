@@ -3,3 +3,5 @@
 .vscode
 *.in
 *.class
+interview
+.DS_Store

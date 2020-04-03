@@ -1,5 +1,33 @@
 import java.util.*;
 
+class Rect {
+    static String p = "R";
+    static public int w = 5;
+    public int h = 12;
+    public String getP() {
+        return p;
+    }
+    private int priv = 99;
+    public int getPriv() {
+        return this.priv;
+    }
+    static public int getW() {
+        System.out.println("This is a Rect");
+        return w;
+    }
+}
+
+class Square extends Rect {
+    static String p = "S";
+    static public int w = 10;
+    public int h = 10;
+    public String getP() {
+        return p;
+    }
+    static public int getW() {
+        return w;
+    }
+}
 class Test {
 
     private int value;
@@ -15,18 +43,18 @@ class Test {
         this.value = v;
     }
     public static void main(String args[]) {
-        Test t = new Test(5);
-        t.show();
-        t.set();
-        t.show();
-        Map<Integer, Integer> m = new HashMap<Integer, Integer>();
-        m.put(1, 2);
-        m.put(2, 3);
-        System.out.println(m.get(1));
-        System.out.println(m.get(2));
-        m.put(2, m.get(2) + 1);
-        System.out.println(m.get(2));
-        System.out.println(m.get(10) == null);
-        System.out.println(m.get(2) == 4);
+        Square square = new Square();
+        Rect rect = square;
+        System.out.println(rect.p);
+        System.out.println(rect.getP());
+        System.out.println(rect.getW());
+        System.out.println(rect.w);
+        System.out.println(square.w);
+        System.out.println(rect.getPriv());
+        System.out.println(square.getPriv());
+        
+
+
     }
+    
 }
