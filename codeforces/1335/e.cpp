@@ -92,9 +92,80 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
-int main(void) {
+int l3p(VI *pos, int a, int b) {
+    int i = 0;
+    int j = 0;
+    VI arr;
+    while (i < pos[a].size() && j < pos[b].size()) {
+        if (pos[a][i] < pos[b][j]) {
+            arr.PB(a);
+            i++;
+        }
+        else {
+            arr.PB(b);
+            j++;
+        }
+    }
+    while (i < pos[a].size()) {
+        arr.PB(a);
+        i++;
+    }
+    while (j < pos[b].size()) {
+        arr.PB(b);
+        j++;
+    }
+    int x = 0, y = pos[b].size();
+    int l = 0, r = arr.size() - 1;
+    int best = 1;
+    while (l < r) {
+        while (l < r && arr[l] != a) {
+            y--;
+            l++;
+        }
+        while (l < r && arr[r] != a) {
+            y--;
+            r--;
+        }
+        if (l == r) break;
+        x++;
+        chmax(best, 2 * x + y);
+        l++;
+        r--;
+    }
+    return best;
+}
+void solve() {
+    VI pos[201];
+    int n;
+    R(n);
+    int a;
+    FORN(i, n) {
+        R(a);
+        pos[a].PB(i);
+    }
+    int ans = 1;
+    FORN(a, 201) {
+        if (pos[a].size() == 0) continue;
+        FORN(b, 201) {
+            if (pos[b].size() == 0) continue;
+            if (a == b) {
+                chmax(ans, (int)pos[a].size());
+            }
+            else {
+                chmax(ans, l3p(pos, a, b));
+            }
+        }
+    }
+    W(ans);
+}
+int main(void)
+{
     //ios::sync_with_stdio(0);
     cin.tie(0);
-
+    int t;
+    R(t);
+    while (t--) {
+        solve();
+    }
 	return 0;
 }

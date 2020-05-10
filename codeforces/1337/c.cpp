@@ -92,9 +92,37 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+const int MAX = 2 * 1e5 + 5;
+VI child[MAX];
+int scores[MAX];
+
+int dfs(int node, int parent, int depth) {
+    int totalChild = 0;
+    for (int i = 0; i < SZ(child[node]); i++) {
+        int c = child[node][i];
+        if (c == parent) continue;
+        totalChild += dfs(c, node, depth + 1);
+    }
+    scores[node] = depth - totalChild;
+    return totalChild + 1;
+}
 int main(void) {
     //ios::sync_with_stdio(0);
     cin.tie(0);
-
+    int n, k;
+    R(n); R(k);
+    int u, v;
+    FORN(i, n - 1) {
+        R(u); R(v);
+        child[u - 1].PB(v - 1);
+        child[v - 1].PB(u - 1);
+    }
+    dfs(0, -1, 0);
+    sort(scores, scores + n, greater<int>());
+    LL ans = 0;
+    FORN(i, k) {
+        ans += scores[i];
+    }
+    W(ans);
 	return 0;
 }

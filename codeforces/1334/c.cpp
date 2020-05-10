@@ -92,9 +92,32 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
-int main(void) {
+LL mons[300005][2];
+void solve() {
+    int n;
+    R(n);
+    for (int i = 0; i < n; i++) {
+        R(mons[i][0]); R(mons[i][1]);
+    }
+    LL groupD = 0;
+    LL minCost = mons[0][0];
+    for (int i = 0; i < n; i++) {
+        chmin(minCost, mons[i][0]);
+        int prev = (i == 0) ? n - 1 : i - 1;
+        if (mons[prev][1] >= mons[i][0]) continue;
+        groupD += mons[i][0] - mons[prev][1];
+        chmin(minCost, mons[prev][1]);
+    }
+    W(minCost + groupD);
+}
+int main(void)
+{
     //ios::sync_with_stdio(0);
-    cin.tie(0);
-
+    //cin.tie(0);
+    int t;
+    R(t);
+    while (t--) {
+        solve();
+    }
 	return 0;
 }

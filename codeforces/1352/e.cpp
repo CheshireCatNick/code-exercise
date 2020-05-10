@@ -95,6 +95,36 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 int main(void) {
     //ios::sync_with_stdio(0);
     cin.tie(0);
+    int t;
+    R(t);
+    while (t--) {
+        int n;
+        R(n);
+        int arr[n];
+        FORN(i, n) {
+            R(arr[i]);
+        }
+        int pref[n + 1];
+        pref[0] = 0;
+        int ans[8001];
+        FORN(i, 8001) {
+            ans[i] = 0;
+        }
+        FORN(i, n) {
+            pref[i + 1] = pref[i] + arr[i];
+            FORN(j, i) {
+                int s = pref[i + 1] - pref[j];
+                if (s <= 8000) {
+                    ans[s] = 1;
+                }
+            }
+        }
+        int count = 0;
+        FORN(i, n) {
+            count += ans[arr[i]];
+        }
+        W(count);
+    }
 
 	return 0;
 }

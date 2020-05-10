@@ -1,4 +1,9 @@
 def RA():
-    l = input().split()
-    return list(map(lambda x: int(x), l))
-    
+    return list(map(int, input().split()))
+
+def solve():
+
+
+t = int(input())
+for i in range(t):
+    solve()
