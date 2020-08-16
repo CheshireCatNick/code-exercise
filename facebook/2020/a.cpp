@@ -47,6 +47,7 @@ void _R(int &x) { scanf("%d", &x); }
 void _R(double &x) { scanf("%lf", &x); }
 void _R(char &x) { scanf(" %c", &x); }
 void _R(char *x) { scanf("%s", x); }
+void _R(LL &x) { scanf("%lld", &x); }
 void R() {}
 template<class T, class... U> void R(T &head, U &... tail) { _R(head); R(tail...); }
  
@@ -55,6 +56,7 @@ void _W(const int &x) { printf("%d", x); }
 void _W(const double &x) { printf("%.16f", x); }
 void _W(const char &x) { putchar(x); }
 void _W(const char *x) { printf("%s", x); }
+void _W(const LL &x) { printf("%lld", x); }
 // print array
 void WA(const int *a, int n) { for (int i = 0; i < n; _W(a[i++])) if (i != 0) putchar(' '); puts(""); }
 template<class T> void _W(const vector<T> &x) { for (auto i = x.begin(); i != x.end(); _W(*i++)) if (i != x.cbegin()) putchar(' '); }
@@ -90,43 +92,58 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
-void solve() {
-    int n;
-    R(n);
-    int e[n];
-    int m = 0;
-    FORN(i, n) {
-        R(e[i]);
-        chmax(m, e[i]);
-    }
-    int f[m + 1];
-    MS0(f);
-    FORN(i, n) {
-        f[e[i]]++;
-    }
-    int ans = 0;
-    int p = 0;
-    FOR(i, 1, m + 1) {
-        ans += (f[i] + p) / i;
-        p = (f[i] + p) % i;
-    }
-    W(ans);
-}
-int main(void)
-{
+int ans[60][60];
+
+int main(void) {
     //ios::sync_with_stdio(0);
-    cin.tie(0);
-	bool a = false;
-    bool b = false;
-    a |= b;
-    W(a);
-    vector<bool> v;
-    v.PB(false);
-    v.PB(true);
-    v[0] |= v[1];
-    W(v[0]);
-
-
-
+    //cin.tie(0);
+    int t;
+    int c = 1;
+    R(t);
+    while (t--) {
+        int n;
+        R(n);
+        string I, O;
+        R(I);
+        R(O);
+        FORN(i, n) {
+            MS0(ans[i]);
+        }
+        int start = 0;
+        FORN(i, n) {
+            if (O[i] == 'Y' && I[i + 1] == 'Y') {
+                FOR(j, start, i + 1) {
+                    ans[j][i + 1] = 1;
+                }
+            }
+            else {
+                start = i + 1;
+            }
+        }
+        start = n - 1;
+        NORF(i, n) {
+            if (O[i] == 'Y' && I[i - 1] == 'Y') {
+                ROF(j, i - 1, start + 1) {
+                    ans[j][i - 1] = 1;
+                }
+            }
+            else {
+                start = i - 1;
+            }
+        }
+        printf("Case #%d:\n", c);
+        FORN(i, n) {
+            FORN(j, n) {
+                if (ans[i][j] || i == j) {
+                    putchar('Y');
+                }
+                else {
+                    putchar('N');
+                }
+            }
+            puts("");
+        }
+        c++;
+    }
 	return 0;
 }
