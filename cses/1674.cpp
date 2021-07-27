@@ -92,9 +92,38 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
-int main(void) {
-    //ios::sync_with_stdio(0);
-    //cin.tie(0);
+const int m = 2e5 + 10;
+VI child[m];
+int ans[m];
 
+// return child_num
+int dfs(int root) {
+    ans[root] = 0;
+    for (int c : child[root]) {
+        if (ans[c] != -1) {
+            ans[root] += ans[c];
+        }
+        else {
+            ans[root] += dfs(c);
+        }
+    }
+    return ans[root] + 1;
+}
+int main(void) {
+    int n;
+    R(n);
+    ans[0] = -1;
+    FORN(i, n - 1) {
+        int p;
+        R(p);
+        child[p - 1].PB(i + 1);
+        ans[i + 1] = -1;
+    }
+    FORN(i, n) {
+        if (ans[i] == -1) {
+            dfs(i);
+        }
+    }
+    WA(ans, n);
 	return 0;
 }

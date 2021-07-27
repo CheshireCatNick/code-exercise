@@ -95,6 +95,24 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
+    int n, t;
+    R(n, t);
+    LL pref[n];
+    int a;
+    LL sum = 0;
+    FORN(i, n) {
+        R(a);
+        sum += a;
+        pref[i] = sum;
+    }
+    while (t--) {
+        int s, e;
+        R(s, e);
+        s--;
+        e--;
+        LL t = (s == 0) ? 0 : pref[s - 1];
+        W(pref[e] - t);
+    }
 
 	return 0;
 }

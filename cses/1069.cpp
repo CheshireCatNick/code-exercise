@@ -93,8 +93,20 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
 int main(void) {
-    //ios::sync_with_stdio(0);
-    //cin.tie(0);
-
+    string s;
+    R(s);
+    int best = 1;
+    int cur = 1;
+    FOR(i, 1, s.length()) {
+        if (s[i] == s[i - 1]) {
+            cur++;
+        }
+        else {
+            chmax(best, cur);
+            cur = 1;
+        }
+    }
+    chmax(best, cur);
+    W(best);
 	return 0;
 }

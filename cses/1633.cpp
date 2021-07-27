@@ -92,9 +92,27 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int mod = 1e9 + 7;
 int main(void) {
-    //ios::sync_with_stdio(0);
-    //cin.tie(0);
+    int n;
+    R(n);
+    LL dp[n];
+    dp[0] = 0;
+    dp[1] = 1;
+    LL prev_sum = 1;
+    for (int i = 2; i <= n; i++) {
+        if (i <= 6) {
+            dp[i] = (prev_sum + 1);
+            prev_sum += dp[i];
+        }
+        else {
+            dp[i] = prev_sum % mod;
+            prev_sum += (dp[i] - dp[i - 6] + mod) % mod;
+            //prev_sum -= dp[i - 6];
+        }
+    }
+    W(dp[n] % mod);
+
 
 	return 0;
 }

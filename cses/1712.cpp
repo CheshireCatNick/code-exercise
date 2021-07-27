@@ -92,9 +92,34 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int pow(int a, int b, int mod) {
+    long long a_now = a;
+    long long ans = 1;
+    while (b > 0) {
+        if (b & 1) {
+            ans *= a_now;
+            ans %= mod;
+        }
+        a_now *= a_now;
+        a_now %= mod;
+        b >>= 1;
+    }
+    return ans;
+}
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
-
+    int t, a, b, c;
+    R(t);
+    while (t--) {
+        R(a, b, c);
+        // according to FLT, a ^ (p - 1) = 1 mod p
+        // ex: 2 ^ 100 = 2 ^ ((13 - 1) * 8 + 4) = 2 ^ 4 mod 13
+        // since 2 ^ ((13 - 1) * 8) = 1 mod 13
+        // since a ^ ((p - 1) * k) = 1 mod p
+        // so a ^ (b ^ c) = a ^ (b ^ c mod (p - 1)) mod p
+        int d = pow(b, c, 1e9 + 6);
+        W(pow(a, d, 1e9 + 7));
+    }
 	return 0;
 }

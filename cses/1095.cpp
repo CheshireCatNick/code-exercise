@@ -92,9 +92,27 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int mod = 1e9 + 7;
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
-
+    int t, a, b;
+    R(t);
+    while (t--) {
+        R(a, b);
+        // calculate a ^ b
+        long long a_now = a;
+        long long ans = 1;
+        while (b > 0) {
+            if (b & 1) {
+                ans *= a_now;
+                ans %= mod;
+            }
+            a_now *= a_now;
+            a_now %= mod;
+            b >>= 1;
+        }
+        W(ans);
+    }
 	return 0;
 }

@@ -94,7 +94,27 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void) {
     //ios::sync_with_stdio(0);
-    //cin.tie(0);
+    cin.tie(0);
+    int t, a, b;
+    R(t);
+    while (t--) {
+        R(a, b);
+        if ((a + b) % 3 != 0) {
+            puts("NO");
+            continue;
+        }
+        if (a < b) {
+            a = a ^ b;
+            b = a ^ b;
+            a = a ^ b;
+        }
+        if (a > 2 * b) {
+            puts("NO");
+            continue;
+        }
+        puts("YES");
+    }
+
 
 	return 0;
 }

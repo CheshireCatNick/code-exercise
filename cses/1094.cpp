@@ -93,8 +93,20 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
 int main(void) {
-    //ios::sync_with_stdio(0);
-    //cin.tie(0);
-
+    LL ans = 0;
+    int n;
+    R(n);
+    int prev = 0;
+    FORN(i, n) {
+        int t;
+        R(t);
+        if (t < prev) {
+            ans += prev - t;
+        }
+        else {
+            prev = t;
+        }
+    }
+    W(ans);
 	return 0;
 }

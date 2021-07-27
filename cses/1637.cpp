@@ -95,6 +95,27 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
-
-	return 0;
+    int n;
+    R(n);
+    int dp[n + 1];
+    FORN(i, 10) {
+        dp[i] = 1;
+    }
+    dp[0] = 0;
+	FOR(i, 10, n + 1) {
+        int t = i;
+        int best = 100000000;
+        while (t > 0) {
+            int digit = t % 10;
+            if (digit == 0) {
+                t /= 10;
+                continue;
+            }
+            chmin(best, dp[i - digit]);
+            t /= 10;
+        }
+        dp[i] = best + 1;
+    }
+    W(dp[n]);
+    return 0;
 }

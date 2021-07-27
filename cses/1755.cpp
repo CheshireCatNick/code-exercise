@@ -94,7 +94,38 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 
 int main(void) {
     //ios::sync_with_stdio(0);
-    //cin.tie(0);
-
+    cin.tie(0);
+    string s;
+    R(s);
+    int f[26];
+    MS0(f);
+    for (char c : s) {
+        f[c - 'A']++;
+    }
+    char center = '@';
+    FORN(i, 26) {
+        if (f[i] % 2 == 1) {
+            if (center != '@') {
+                W("NO SOLUTION");
+                return 0;
+            }
+            center = 'A' + i;
+        }
+    }
+    string ans = "";
+    FORN(i, 26) {
+        if (f[i] % 2 == 0) {
+            ans += string(f[i] / 2, 'A' + i);
+        }
+    }
+    if (center != '@') {
+        ans += string(f[center - 'A'], center);
+    }
+    NORF(i, 26) {
+        if (f[i] % 2 == 0) {
+            ans += string(f[i] / 2, 'A' + i);
+        }
+    }
+    W(ans);
 	return 0;
 }

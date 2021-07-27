@@ -92,9 +92,37 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int m, n;
+char g[2000][2000];
+
+void dfs(int x, int y) {
+    if (x < 0 || x >= m || y < 0 || y >= n || g[x][y] == '#') {
+        return;
+    }
+    g[x][y] = '#';
+    dfs(x - 1, y);
+    dfs(x + 1, y);
+    dfs(x, y - 1);
+    dfs(x, y + 1);
+}
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
-
+    R(m, n);
+    FORN(i, m) {
+        FORN(j, n) {
+            R(g[i][j]);
+        }
+    }
+    int ans = 0;
+    FORN(i, m) {
+        FORN(j, n) {
+            if (g[i][j] == '.') {
+                dfs(i, j);
+                ans++;
+            }
+        }
+    }
+    W(ans);
 	return 0;
 }

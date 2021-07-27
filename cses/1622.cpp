@@ -92,9 +92,40 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+vector<string> v;
+void p(string pref, string suf) {
+    if (SZ(suf) == 0) {
+        v.PB(pref);
+        return;
+    }
+    set<char> s;
+    for (char c: suf) {
+        s.insert(c);
+    }
+    for (char c : s) {
+        // remove one c from suf
+        string nsuf = "";
+        int i;
+        for (i = 0; i < SZ(suf); i++) {
+            if (suf[i] == c) {
+                break;
+            }
+            nsuf += suf[i];
+        }
+        nsuf += suf.substr(i + 1, SZ(suf));
+        p(pref + c, nsuf);
+    }
+}
 int main(void) {
     //ios::sync_with_stdio(0);
     //cin.tie(0);
-
+    string s;
+    R(s);
+    sort(s.begin(), s.end());
+    p("", s);
+    W(SZ(v));
+    for (string ss : v) {
+        W(ss);
+    }
 	return 0;
 }

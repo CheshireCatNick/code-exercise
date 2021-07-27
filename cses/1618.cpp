@@ -92,9 +92,23 @@ template<class T, class... Args> void _dump(const char *s, T &&head, Args &&... 
 }
 #define dump(...) do { fprintf(stderr, "%s:%d - ", __PRETTY_FUNCTION__, __LINE__); _dump(#__VA_ARGS__, __VA_ARGS__); } while (0)
 
+int count(int n, int base) {
+    int r = 0;
+    LL now = base;
+    while (now <= n) {
+        r += n / now;
+        now *= base;
+    }
+    return r;
+}
 int main(void) {
     //ios::sync_with_stdio(0);
-    //cin.tie(0);
-
+    cin.tie(0);
+    int n;
+    R(n);
+    int f = 0, t = 0;
+    f += count(n, 5);
+    t += count(n, 2);
+    W(min(f, t));
 	return 0;
 }
