@@ -37,6 +37,37 @@ def solution(start, length):
                 ans ^= n ^ 1
         n += l
         length -= 1
+    # return num of 1 from 0 ~ n
+    def get_one(n):
+        n += 1
+        one = [0] * 32
+        d = 2
+        for i in range(0, 32):
+            one[i] = n // d * (d // 2)
+            r = n % d
+            if r > d // 2:
+                one[i] += r - d // 2
+            d *= 2
+        return one
+
+    def range_xor(start, end):
+        so = get_one(start - 1)
+        eo = get_one(end)
+        r = 0
+        for i in range(31, -1, -1):
+            if (eo[i] - so[i]) % 2:
+                r |= 1
+            r <<= 1
+        return r >> 1
+
+    ans = 0
+    l = length - 1
+    b = start + l
+    while length >= 1:
+        a = b - (length - 1)
+        ans ^= range_xor(a, b)
+        length -= 1
+        b += l
     return ans
 
 print(solution(0, 3))
